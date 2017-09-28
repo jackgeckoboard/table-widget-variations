@@ -10,7 +10,8 @@ class App extends Component {
       width: 470,
       height: 470,
       headerRow: true,
-      numberOfRows: 7,
+      maxRows: 7,
+      maxColumns: 3,
       data: [
         {
           on: true,
@@ -22,30 +23,66 @@ class App extends Component {
             "Waitrose",
             "Big Evil Mega Corp",
             "Lloyds Bank",
-            "Landrover Jaguar"
+            "Landrover Jaguar",
+            "Deliveroo",
+            "Independent Clothes Shop",
+            "Spotify",
+            "Trendy Advertising Agency",
+            "Publishing House"
           ]
         },
         {
           on: true,
           heading: "Budget",
-          rows: ["£110M", "£40M", "£632M", "£2M", "£89M", "£1,290M", "£780M"]
+          rows: [
+            "£110M",
+            "£40M",
+            "£632M",
+            "£2M",
+            "£89M",
+            "£1,290M",
+            "£780M",
+            "£1M",
+            "£19M",
+            "£812M",
+            "£999M",
+            "$4M"
+          ]
         },
         {
           on: false,
           heading: "Conversion Rate",
-          rows: ["1.67%", "12.89%", "4.97%", "6.00%", "3.80%", "7.18%", "0.02%"]
+          rows: [
+            "1.67%",
+            "12.89%",
+            "4.97%",
+            "6.00%",
+            "3.80%",
+            "7.18%",
+            "0.02%",
+            "102.89%",
+            "67.10%",
+            "7.54%",
+            "3.01%",
+            "7.77%"
+          ]
         },
         {
           on: false,
           heading: "Due Date",
           rows: [
-            "17 September 2017",
-            "8 January 2018",
-            "29 December 2017",
-            "16 May 2019",
-            "4 April 2018",
-            "22 November 2017",
-            "1 June 2018"
+            "17 Sep 17",
+            "8 Jan 18",
+            "29 Dec 17",
+            "16 May 19",
+            "4 Apr 18",
+            "22 Nov 17",
+            "1 Jun 18",
+            "31 May 19",
+            "5 Apr 93",
+            "29 Feb 20",
+            "6 Sep 18",
+            "22 Oct 14"
           ]
         },
         {
@@ -58,7 +95,12 @@ class App extends Component {
             "Roxanne Robertson",
             "Wesley Garza",
             "Cary Goodwin",
-            "Margie McKinney"
+            "Margie McKinney",
+            "Barry Bluejeans",
+            "Simon Says",
+            "Apu Nahasapeemapetilon",
+            "Neo",
+            "Supreme Leader of the Democratic People's Republic of Korea"
           ]
         }
       ]
@@ -76,15 +118,17 @@ class App extends Component {
     }
   }
 
-  onSetWidth(width) {
+  onSetWidth(width, maxColumns) {
     this.setState({
-      width: width
+      width: width,
+      maxColumns: maxColumns
     });
   }
 
-  onSetHeight(height) {
+  onSetHeight(height, maxRows) {
     this.setState({
-      height: height
+      height: height,
+      maxRows: maxRows
     });
   }
 
@@ -122,18 +166,17 @@ class App extends Component {
     let allData = this.state.data;
     let transformedData = [];
 
-    for (
-      let currentRow = 0;
-      currentRow < this.state.numberOfRows;
-      currentRow++
-    ) {
+    for (let currentRow = 0; currentRow < this.state.maxRows; currentRow++) {
       transformedData.push([]);
       for (
         let currentColumn = 0;
         currentColumn < allData.length;
         currentColumn++
       ) {
-        if (allData[currentColumn].on) {
+        if (
+          allData[currentColumn].on &&
+          transformedData[currentRow].length < this.state.maxColumns
+        ) {
           let value = allData[currentColumn].rows[currentRow];
           transformedData[currentRow].push(value);
         }
@@ -147,15 +190,18 @@ class App extends Component {
       currentColumn < allData.length;
       currentColumn++
     ) {
-      if (allData[currentColumn].on) {
+      if (
+        allData[currentColumn].on &&
+        headings.length < this.state.maxColumns
+      ) {
         headings.push([]);
-        headings[currentColumn].push(allData[currentColumn].heading);
+        headings[headings.length - 1].push(allData[currentColumn].heading);
         if (currentColumn === 0 || currentColumn === 4) {
-          headings[currentColumn].push("string");
+          headings[headings.length - 1].push("string");
         } else if (currentColumn === 3) {
-          headings[currentColumn].push("date");
+          headings[headings.length - 1].push("date");
         } else {
-          headings[currentColumn].push("number");
+          headings[headings.length - 1].push("number");
         }
       }
     }
@@ -173,6 +219,7 @@ class App extends Component {
           toggleHeaderRow={this.onToggleHeaderRow.bind(this)}
           toggleColumn={this.onToggleColumn.bind(this)}
           data={this.state.data}
+          height={this.state.height}
         />
         <Visualization
           width={this.state.width}

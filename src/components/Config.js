@@ -2,28 +2,40 @@ import React, { Component } from "react";
 
 class Config extends Component {
   onSetWidth2() {
-    this.props.setWidth(470);
+    this.props.setWidth(470, 3);
   }
   onSetWidth3() {
-    this.props.setWidth(710);
+    this.props.setWidth(710, 4);
   }
   onSetWidth4() {
-    this.props.setWidth(950);
+    this.props.setWidth(950, 5);
   }
 
   onSetHeight1() {
-    this.props.setHeight(230);
+    if (this.props.headerRow) {
+      this.props.setHeight(230, 2);
+    } else {
+      this.props.setHeight(230, 3);
+    }
   }
 
   onSetHeight2() {
-    this.props.setHeight(470);
+    this.props.setHeight(470, 7);
   }
   onSetHeight3() {
-    this.props.setHeight(710);
+    this.props.setHeight(710, 11);
   }
 
   onToggleHeaderRow() {
     this.props.toggleHeaderRow();
+
+    if (this.props.height === 230) {
+      if (this.props.headerRow) {
+        this.props.setHeight(230, 3);
+      } else {
+        this.props.setHeight(230, 2);
+      }
+    }
   }
 
   toggleColumn1() {
