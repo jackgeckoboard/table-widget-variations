@@ -66,6 +66,10 @@ td.number {
   text-align: right;
 }
 
+th.number {
+  text-align: right;
+}
+
 td.string {
   white-space: nowrap;
   text-overflow: ellipsis;
