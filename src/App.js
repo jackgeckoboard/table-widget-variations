@@ -102,6 +102,24 @@ class App extends Component {
             "Neo",
             "Supreme Leader of the Democratic People's Republic of Korea"
           ]
+        },
+        {
+          on: false,
+          heading: "Country",
+          rows: [
+            "GBR",
+            "USA",
+            "AUS",
+            "NZL",
+            "DEU",
+            "FRA",
+            "ITA",
+            "DNK",
+            "CHN",
+            "GBR",
+            "USA",
+            "AUS"
+          ]
         }
       ]
     };
@@ -198,7 +216,7 @@ class App extends Component {
         headings[headings.length - 1].push(allData[currentColumn].heading);
         if (currentColumn === 0 || currentColumn === 4) {
           headings[headings.length - 1].push("string");
-        } else if (currentColumn === 3) {
+        } else if (currentColumn === 3 || currentColumn === 5) {
           headings[headings.length - 1].push("date");
         } else {
           headings[headings.length - 1].push("number");

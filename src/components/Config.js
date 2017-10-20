@@ -55,6 +55,10 @@ class Config extends Component {
     this.props.toggleColumn(4);
   }
 
+  toggleColumn6() {
+    this.props.toggleColumn(5);
+  }
+
   styles = {
     container: {
       backgroundColor: "#eee",
@@ -135,6 +139,14 @@ class Config extends Component {
             checked={this.props.data[4].on}
           />
           <label>Manager (String)</label>
+          <br />
+          <input
+            type="checkbox"
+            name="column6"
+            onChange={this.toggleColumn6.bind(this)}
+            checked={this.props.data[5].on}
+          />
+          <label>Country (Short String)</label>
         </div>
       </div>
     );
