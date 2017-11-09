@@ -11,7 +11,11 @@ class App extends Component {
       height: 470,
       headerRow: true,
       maxRows: 7,
+      sorted: false,
+      sortedBy: null,
+      sortDescending: false,
       maxColumns: 3,
+      sortingLoading: false,
       data: [
         {
           on: true,
@@ -162,6 +166,30 @@ class App extends Component {
     }
   }
 
+  onSort(sorted, sortedBy, sortDescending) {
+    this.setState({
+      sortingLoading: true
+    });
+    setTimeout(() => {
+      this.setState({
+        sortingLoading: false
+      });
+    }, 1000);
+    if (!sorted) {
+      this.setState({
+        sorted: false,
+        sortedBy: null,
+        sortDescending: null
+      });
+    } else {
+      this.setState({
+        sorted: true,
+        sortedBy: sortedBy,
+        sortDescending: sortDescending
+      });
+    }
+  }
+
   styles = {
     container: {
       backgroundColor: "#eee",
@@ -214,9 +242,9 @@ class App extends Component {
       ) {
         headings.push([]);
         headings[headings.length - 1].push(allData[currentColumn].heading);
-        if (currentColumn === 0 || currentColumn === 4) {
+        if (currentColumn === 0 || currentColumn === 4 || currentColumn === 5) {
           headings[headings.length - 1].push("string");
-        } else if (currentColumn === 3 || currentColumn === 5) {
+        } else if (currentColumn === 3) {
           headings[headings.length - 1].push("date");
         } else {
           headings[headings.length - 1].push("number");
@@ -239,12 +267,18 @@ class App extends Component {
           data={this.state.data}
           height={this.state.height}
         />
+
         <Visualization
           width={this.state.width}
           height={this.state.height}
           headerRow={this.state.headerRow}
           headings={headings}
           data={transformedData}
+          sorted={this.state.sorted}
+          sortedBy={this.state.sortedBy}
+          sortDescending={this.state.sortDescending}
+          onChangeSorting={this.onSort.bind(this)}
+          sortingLoading={this.state.sortingLoading}
         />
       </div>
     );

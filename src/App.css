@@ -37,11 +37,7 @@ th {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding-top: 4px;
   white-space: nowrap;
-}
-
-th.string {
-  text-overflow: ellipsis;
-  overflow: hidden;
+  cursor: pointer;
 }
 
 td {
@@ -77,4 +73,55 @@ td.string {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 1px;
+}
+
+.heading-text {
+  position: relative;
+}
+
+.heading-text:before {
+  content: url("images/sort.svg");
+  display: block;
+  position: absolute;
+  top: 7px;
+  font-size: 14px;
+  opacity: 0;
+  color: white;
+  transition: opacity 0.1s ease;
+  cursor: pointer;
+}
+
+.heading-text.sorted:before {
+  opacity: 0.1;
+}
+
+th.date .heading-text:before,
+th.string .heading-text:before {
+  right: -14px;
+}
+
+th.number .heading-text:before {
+  left: -14px;
+}
+
+.ascending > .sorted.heading-text:before {
+  content: url("images/sort-up.svg");
+  margin-top: 0;
+}
+
+.descending > .sorted.heading-text:before {
+  content: url("images/sort-down.svg");
+  margin-top: 2px;
+}
+
+.widget:hover .heading-text.sorted:before {
+  opacity: 0.4;
+}
+
+.widget:hover th:hover .heading-text:before {
+  opacity: 0.7;
+}
+
+th:hover {
+  color: rgba(255, 255, 255, 0.7);
 }
