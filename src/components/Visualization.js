@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Loader from "./Loader";
 
 class Visualization extends Component {
   onChangeSorting(i) {
@@ -61,13 +62,11 @@ class Visualization extends Component {
       sortClass = "ascending";
     }
 
-    console.log(classes);
-
     return (
       <div style={styles.container} className="widget">
         <div style={styles.title}>Project Management Table</div>
         {this.props.sortingLoading ? (
-          <h1>Loading</h1>
+          <Loader />
         ) : (
           <table>
             <tbody>

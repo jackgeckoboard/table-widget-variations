@@ -209,7 +209,27 @@ class App extends Component {
   };
 
   render() {
-    let allData = this.state.data;
+    let allData = [];
+
+    //Copy the data from state (don't reference) so we can manipulate
+    for (let i = 0; i < this.state.data.length; i++) {
+      let newObject = {};
+      newObject.heading = this.state.data[i].heading;
+      newObject.on = this.state.data[i].on;
+      newObject.rows = this.state.data[i].rows.slice();
+      allData[i] = newObject;
+    }
+
+    if (this.state.sorted) {
+      let sortByRow = allData[this.state.sortedBy].rows;
+      sortByRow.sort();
+      if (this.state.sortDescending) {
+        sortByRow.reverse();
+      }
+    }
+
+    console.log(allData);
+
     let transformedData = [];
 
     for (let currentRow = 0; currentRow < this.state.maxRows; currentRow++) {
@@ -251,10 +271,6 @@ class App extends Component {
         }
       }
     }
-
-    console.log(headings);
-
-    console.log(transformedData);
 
     return (
       <div>
