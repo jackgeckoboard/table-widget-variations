@@ -11,7 +11,7 @@ class Loader extends Component {
           <div className="rect4" />
           <div className="rect5" />
         </div>
-        <p>Sorting data.</p>
+        <p>Sorting data</p>
       </div>
     );
   }
