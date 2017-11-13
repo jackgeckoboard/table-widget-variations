@@ -169,12 +169,12 @@ th:hover {
   }
 }
 
-@keyframes placeHolderShimmer{
-  0%{
-      background-position: -468px 0
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: 0 0;
   }
-  100%{
-      background-position: 468px 0
+  100% {
+    background-position: 468px 0;
   }
 }
 
@@ -183,13 +183,19 @@ td {
 }
 
 .cell-loading-state {
-  animation-duration: 1.3s;
+  animation-duration: 1.1s;
+  animation-delay: 0.2s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
   animation-name: placeHolderShimmer;
   animation-timing-function: linear;
   background: rgb(42, 42, 42);
-  background: linear-gradient(to right, rgb(50, 50, 50) 8%, rgb(60, 60, 60) 18%, rgb(50, 50, 50) 32%);
+  background: linear-gradient(
+    to right,
+    rgb(50, 50, 50) 0%,
+    rgb(60, 60, 60) 50%,
+    rgb(50, 50, 50) 100%
+  );
   background-size: 800px 104px;
   position: absolute;
   top: 12px;
@@ -197,4 +203,47 @@ td {
   right: 10px;
   bottom: 10px;
   border-radius: 100px;
+}
+
+table {
+  position: relative;
+}
+
+.sort-button {
+  position: absolute;
+  top: 14px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  width: 25px;
+  height: 25px;
+  border-radius: 3px;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.1s;
+}
+
+.widget:hover .sort-button {
+  opacity: 0.8;
+}
+
+.widget:hover .sort-button:hover {
+  opacity: 1;
+}
+
+.sort-button.unsorted {
+  background-image: url("images/sort.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.sort-button.ascending {
+  background-image: url("images/sort-up.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.sort-button.descending {
+  background-image: url("images/sort-down.svg");
+  background-repeat: no-repeat;
+  background-position: center;
 }

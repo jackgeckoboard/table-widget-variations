@@ -25,6 +25,26 @@ class Visualization extends Component {
     this.props.onChangeSorting(sorted, sortBy, sortDescending);
   }
 
+  onSortingNoHeader() {
+    let sorted;
+    let sortBy;
+    let sortDescending;
+    if (this.props.sorted && this.props.sortDescending === true) {
+      sorted = false;
+      sortBy = null;
+      sortDescending = false;
+    } else {
+      sorted = true;
+      sortBy = 0;
+      if (this.props.sorted && !this.props.sortDescending) {
+        sortDescending = true;
+      } else {
+        sortDescending = false;
+      }
+    }
+    this.props.onChangeSorting(sorted, sortBy, sortDescending);
+  }
+
   render() {
     const styles = {
       container: {
@@ -64,49 +84,58 @@ class Visualization extends Component {
     return (
       <div style={styles.container} className="widget">
         <div style={styles.title}>Project Management Table</div>
-          <table>
-            <tbody>
-              {this.props.headerRow && (
-                <tr>
-                  {this.props.headings.map(function(heading, index) {
-                    return (
-                      <th
-                        className={heading[1]}
-                        onClick={this.onChangeSorting.bind(this, index)}
-                      >
-                        {index === sortedBy ? (
-                          <span className={sortClass}>
-                            <span className="heading-text sorted">
-                              {heading[0]}
-                            </span>
-                          </span>
-                        ) : (
-                          <span className="heading-text unsorted">
+        <table>
+          <tbody>
+            {this.props.headerRow && (
+              <tr>
+                {this.props.headings.map(function(heading, index) {
+                  return (
+                    <th
+                      className={heading[1]}
+                      onClick={this.onChangeSorting.bind(this, index)}
+                    >
+                      {index === sortedBy ? (
+                        <span className={sortClass}>
+                          <span className="heading-text sorted">
                             {heading[0]}
                           </span>
+                        </span>
+                      ) : (
+                        <span className="heading-text unsorted">
+                          {heading[0]}
+                        </span>
+                      )}
+                    </th>
+                  );
+                }, this)}
+              </tr>
+            )}
+            {this.props.data.map(function(row, index) {
+              return (
+                <tr>
+                  {row.map(function(cell, index) {
+                    return (
+                      <td className={classes[index]}>
+                        {cell}
+                        {this.props.sortingLoading && (
+                          <div className="cell-loading-state" />
                         )}
-                      </th>
+                      </td>
                     );
                   }, this)}
                 </tr>
-              )}
-              {this.props.data.map(function(row, index) {
-                return (
-                  <tr>
-                    {row.map(function(cell, index) {
-                      return (
-                        <td className={classes[index]}>
-                          {cell}
-                          {this.props.sortingLoading && (<div className="cell-loading-state"></div>)}
-                        </td>
-                      );
-                    }, this)}
-                  </tr>
-                );
-              }, this)}
-            </tbody>
-          </table>
-
+              );
+            }, this)}
+            {!this.props.headerRow && (
+              <div
+                onClick={this.onSortingNoHeader.bind(this)}
+                className={
+                  "sort-button " + (sortClass ? sortClass : "unsorted")
+                }
+              />
+            )}
+          </tbody>
+        </table>
       </div>
     );
   }
