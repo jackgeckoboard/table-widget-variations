@@ -168,3 +168,33 @@ th:hover {
     transform: scaleX(1);
   }
 }
+
+@keyframes placeHolderShimmer{
+  0%{
+      background-position: -468px 0
+  }
+  100%{
+      background-position: 468px 0
+  }
+}
+
+td {
+  position: relative;
+}
+
+.cell-loading-state {
+  animation-duration: 1.3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: rgb(42, 42, 42);
+  background: linear-gradient(to right, rgb(50, 50, 50) 8%, rgb(60, 60, 60) 18%, rgb(50, 50, 50) 32%);
+  background-size: 800px 104px;
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 100px;
+}

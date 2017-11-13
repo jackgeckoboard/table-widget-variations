@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Loader from "./Loader";
 
 class Visualization extends Component {
   onChangeSorting(i) {
@@ -65,9 +64,6 @@ class Visualization extends Component {
     return (
       <div style={styles.container} className="widget">
         <div style={styles.title}>Project Management Table</div>
-        {this.props.sortingLoading ? (
-          <Loader />
-        ) : (
           <table>
             <tbody>
               {this.props.headerRow && (
@@ -98,14 +94,19 @@ class Visualization extends Component {
                 return (
                   <tr>
                     {row.map(function(cell, index) {
-                      return <td className={classes[index]}>{cell}</td>;
+                      return (
+                        <td className={classes[index]}>
+                          {cell}
+                          {this.props.sortingLoading && (<div className="cell-loading-state"></div>)}
+                        </td>
+                      );
                     }, this)}
                   </tr>
                 );
               }, this)}
             </tbody>
           </table>
-        )}
+
       </div>
     );
   }
