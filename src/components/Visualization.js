@@ -65,47 +65,50 @@ class Visualization extends Component {
     return (
       <div style={styles.container} className="widget">
         <div style={styles.title}>Project Management Table</div>
-        {this.props.sortingLoading ? (
-          <Loader />
-        ) : (
-          <table>
-            <tbody>
-              {this.props.headerRow && (
-                <tr>
-                  {this.props.headings.map(function(heading, index) {
-                    return (
-                      <th
-                        className={heading[1]}
-                        onClick={this.onChangeSorting.bind(this, index)}
-                      >
-                        {index === sortedBy ? (
-                          <span className={sortClass}>
-                            <span className="heading-text sorted">
-                              {heading[0]}
-                            </span>
-                          </span>
-                        ) : (
-                          <span className="heading-text unsorted">
+
+        <table>
+          <tbody>
+            {this.props.headerRow && (
+              <tr>
+                {this.props.headings.map(function(heading, index) {
+                  return (
+                    <th
+                      className={heading[1]}
+                      onClick={this.onChangeSorting.bind(this, index)}
+                    >
+                      {index === sortedBy ? (
+                        <span className={sortClass}>
+                          <span className="heading-text sorted">
                             {heading[0]}
                           </span>
-                        )}
-                      </th>
-                    );
-                  }, this)}
-                </tr>
-              )}
-              {this.props.data.map(function(row, index) {
+                        </span>
+                      ) : (
+                        <span className="heading-text unsorted">
+                          {heading[0]}
+                        </span>
+                      )}
+                    </th>
+                  );
+                }, this)}
+              </tr>
+            )}
+            {!this.props.sortingLoading &&
+              this.props.data.map(function(row, index) {
                 return (
                   <tr>
                     {row.map(function(cell, index) {
-                      return <td className={classes[index]}>{cell}</td>;
+                      return cell[index] === 0 && !this.props.headerRow ? (
+                        <td>Sort</td>
+                      ) : (
+                        <td className={classes[index]}>{cell}</td>
+                      );
                     }, this)}
                   </tr>
                 );
               }, this)}
-            </tbody>
-          </table>
-        )}
+          </tbody>
+        </table>
+        {this.props.sortingLoading && <Loader />}
       </div>
     );
   }
