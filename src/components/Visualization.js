@@ -95,7 +95,7 @@ class Visualization extends Component {
                       onClick={this.onChangeSorting.bind(this, index)}
                     >
                       {index === sortedBy ? (
-                        <span className={sortClass}>
+                        <span className={"column-" + index + " " + sortClass}>
                           <span className="heading-text sorted">
                             {heading[0]}
                           </span>
@@ -112,10 +112,10 @@ class Visualization extends Component {
             )}
             {this.props.data.map(function(row, index) {
               return (
-                <tr>
+                <tr className={"row-" + index}>
                   {row.map(function(cell, index) {
                     return (
-                      <td className={classes[index]}>
+                      <td className={"column-" + index + " " + classes[index]}>
                         {cell}
                         {this.props.sortingLoading && (
                           <div className="cell-loading-state" />
@@ -127,12 +127,14 @@ class Visualization extends Component {
               );
             }, this)}
             {!this.props.headerRow && (
-              <div
-                onClick={this.onSortingNoHeader.bind(this)}
-                className={
-                  "sort-button " + (sortClass ? sortClass : "unsorted")
-                }
-              />
+              <div className="sort-button-container">
+                <div
+                  onClick={this.onSortingNoHeader.bind(this)}
+                  className={
+                    "sort-button " + (sortClass ? sortClass : "unsorted")
+                  }
+                />
+              </div>
             )}
           </tbody>
         </table>

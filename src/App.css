@@ -210,10 +210,7 @@ table {
 }
 
 .sort-button {
-  position: absolute;
-  top: 14px;
-  left: 10px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   width: 25px;
   height: 25px;
   border-radius: 3px;
@@ -222,7 +219,12 @@ table {
   transition: opacity 0.1s;
 }
 
-.widget:hover .sort-button {
+.widget:hover .sort-button.ascending,
+.widget:hover .sort-button.descending {
+  opacity: 0.8;
+}
+
+.sort-button-container:hover .sort-button {
   opacity: 0.8;
 }
 
@@ -246,4 +248,13 @@ table {
   background-image: url("images/sort-down.svg");
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.sort-button-container {
+  position: absolute;
+  padding: 14px;
+  height: 53px;
+  width: 317px;
+  top: 3px;
+  left: 0;
 }
