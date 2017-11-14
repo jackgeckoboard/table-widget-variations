@@ -217,11 +217,7 @@ table {
   opacity: 0;
   cursor: pointer;
   transition: opacity 0.1s;
-}
-
-.widget:hover .sort-button.ascending,
-.widget:hover .sort-button.descending {
-  opacity: 0.8;
+  float: right;
 }
 
 .sort-button-container:hover .sort-button {
@@ -254,7 +250,27 @@ table {
   position: absolute;
   padding: 14px;
   height: 53px;
-  width: 317px;
+  width: 335px;
   top: 3px;
   left: 0;
+  overflow: hidden;
+}
+
+.sort-overlay {
+  width: 335px;
+  height: 426px;
+  background-color: rgba(255, 255, 255, 0.03);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: all 0.1s ease;
+}
+
+.sort-button-container:hover {
+  overflow: visible;
+}
+
+.sort-button-container:hover .sort-overlay {
+  opacity: 1;
 }

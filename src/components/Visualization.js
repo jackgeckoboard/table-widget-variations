@@ -128,6 +128,7 @@ class Visualization extends Component {
             }, this)}
             {!this.props.headerRow && (
               <div className="sort-button-container">
+                <div className="sort-overlay" />
                 <div
                   onClick={this.onSortingNoHeader.bind(this)}
                   className={
