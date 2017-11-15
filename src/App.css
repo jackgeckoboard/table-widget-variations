@@ -89,16 +89,20 @@ td.string {
   cursor: pointer;
 }
 
+td .heading-text:before {
+  top: 10px;
+}
+
 .heading-text.sorted:before {
   opacity: 0.1;
 }
 
-th.date .heading-text:before,
-th.string .heading-text:before {
+.date .heading-text:before,
+.string .heading-text:before {
   right: -14px;
 }
 
-th.number .heading-text:before {
+.number .heading-text:before {
   left: -14px;
 }
 
@@ -116,7 +120,8 @@ th.number .heading-text:before {
   opacity: 0.4;
 }
 
-.widget:hover th:hover .heading-text:before {
+.widget:hover th:hover .heading-text:before,
+.widget:hover td:hover .heading-text:before {
   opacity: 0.7;
 }
 
@@ -209,68 +214,6 @@ table {
   position: relative;
 }
 
-.sort-button {
-  background: rgba(0, 0, 0, 0.8);
-  width: 25px;
-  height: 25px;
-  border-radius: 3px;
-  opacity: 0;
+.heading-text {
   cursor: pointer;
-  transition: opacity 0.1s;
-  float: right;
-}
-
-.sort-button-container:hover .sort-button {
-  opacity: 0.8;
-}
-
-.widget:hover .sort-button:hover {
-  opacity: 1;
-}
-
-.sort-button.unsorted {
-  background-image: url("images/sort.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.sort-button.ascending {
-  background-image: url("images/sort-up.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.sort-button.descending {
-  background-image: url("images/sort-down.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.sort-button-container {
-  position: absolute;
-  padding: 14px;
-  height: 53px;
-  width: 335px;
-  top: 3px;
-  left: 0;
-  overflow: hidden;
-}
-
-.sort-overlay {
-  width: 335px;
-  height: 426px;
-  background-color: rgba(255, 255, 255, 0.03);
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 0.1s ease;
-}
-
-.sort-button-container:hover {
-  overflow: visible;
-}
-
-.sort-button-container:hover .sort-overlay {
-  opacity: 1;
 }

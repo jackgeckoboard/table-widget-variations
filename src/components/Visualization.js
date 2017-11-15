@@ -84,7 +84,7 @@ class Visualization extends Component {
     return (
       <div style={styles.container} className="widget">
         <div style={styles.title}>Project Management Table</div>
-        <table>
+        <table className={!this.props.headerRow ? "no-header" : ""}>
           <tbody>
             {this.props.headerRow && (
               <tr>
@@ -110,8 +110,32 @@ class Visualization extends Component {
                 }, this)}
               </tr>
             )}
+
             {this.props.data.map(function(row, index) {
-              return (
+              return index === 0 ? (
+                <tr className={"row-" + index}>
+                  {row.map(function(cell, index) {
+                    return (
+                      <td
+                        className={"column-" + index + " " + classes[index]}
+                        onClick={this.onChangeSorting.bind(this, index)}
+                      >
+                        {index === sortedBy ? (
+                          <span className={"column-" + index + " " + sortClass}>
+                            <span className="heading-text sorted">{cell}</span>
+                          </span>
+                        ) : (
+                          <span className="heading-text unsorted">{cell}</span>
+                        )}
+
+                        {this.props.sortingLoading && (
+                          <div className="cell-loading-state" />
+                        )}
+                      </td>
+                    );
+                  }, this)}
+                </tr>
+              ) : (
                 <tr className={"row-" + index}>
                   {row.map(function(cell, index) {
                     return (
@@ -126,17 +150,6 @@ class Visualization extends Component {
                 </tr>
               );
             }, this)}
-            {!this.props.headerRow && (
-              <div className="sort-button-container">
-                <div className="sort-overlay" />
-                <div
-                  onClick={this.onSortingNoHeader.bind(this)}
-                  className={
-                    "sort-button " + (sortClass ? sortClass : "unsorted")
-                  }
-                />
-              </div>
-            )}
           </tbody>
         </table>
       </div>
