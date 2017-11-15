@@ -112,7 +112,7 @@ class Visualization extends Component {
             )}
 
             {this.props.data.map(function(row, index) {
-              return index === 0 ? (
+              return index === 0 && !this.props.headerRow ? (
                 <tr className={"row-" + index}>
                   {row.map(function(cell, index) {
                     return (
